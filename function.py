@@ -1,3 +1,5 @@
+import sys
+sys.path.append('/usr/local/lib/python3.7/site-packages')
 import cv2
 import numpy as np
 import math
@@ -68,6 +70,20 @@ def lbp(image):
         return img_lbp, area_wajah
     else:
         return False
+#Merubah semua pixel dalam gambar menjadi lbp
+def lbpsemua(image):
+    lebar = 480
+    #tinggi = int((image.shape[0]/image.shape[1])*lebar)
+    #oy = cv2.resize(image,(lebar,tinggi))  
+    height, width = image.shape
+    img_lbp = np.zeros((height, width), np.uint8)
+    for y in range(height):
+        for x in range(width):
+            threshold = image[y][x]
+            andai = calculate(image, y, x, threshold)
+            img_lbp[y][x] = andai
+    return img_lbp
+    
 '''
 Fungsi Histogram
 '''
